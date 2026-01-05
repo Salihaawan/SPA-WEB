@@ -1,8 +1,12 @@
-FROM centos:9
-RUN yum -y update && yum install -y httpd
+FROM ubuntu:22.04
+
+RUN apt-get update && \
+    apt-get install -y apache2 && \
+    apt-get clean
 
 WORKDIR /var/www/html
 COPY . .
-EXPOSE 80
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 
+EXPOSE 80
+
+CMD ["apachectl", "-D", "FOREGROUND"]
